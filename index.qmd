@@ -1,0 +1,11 @@
+---
+title: "Job Trends 2024"
+author: "Your Name"
+format: html
+editor: visual
+---
+
+# Welcome to the Job Trends 2024 Analysis
+
+This website presents insights on job market trends, skill demands, and career planning for 2024.
+
