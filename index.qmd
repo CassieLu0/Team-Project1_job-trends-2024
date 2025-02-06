@@ -1,11 +1,40 @@
 ---
-title: "Job Trends 2024"
-author: "Your Name"
+title: "2024 Job Trends"
+author:
+  - Ling Lu
+  - Luoyan Zhang
+  - Yinuo Wang
+date: "`r Sys.Date()`"  
 format: html
-editor: visual
+theme: default
+highlight-style: pygments
 ---
 
-# Welcome to the Job Trends 2024 Analysis
+Welcome to the 2024 Job Trends Analysis
 
-This website presents insights on job market trends, skill demands, and career planning for 2024.
+This website provides an in-depth analysis of job trends for 2024 based on the latest available dataset. Below you will find an overview of the data, key insights, and interactive visualizations that reveal:
+
+- Employment Patterns:** How various industries are performing.
+- Job Demand: Trends in job postings and market demands.
+- Regional Variations: How different regions are impacted.
+
+About the Data
+
+The dataset for 2024 has been carefully curated and cleaned to ensure reliable insights. It includes data on:
+
+- Job Postings:** Information on new job openings.
+- Industry Sectors:** Detailed breakdowns by sector.
+- Location Data:** Regional trends and statistics.
+
+Feel free to explore the site and learn more about the evolving job market.
+
+Meet the Team
+
+- Ling Lu
+- Luoyan Zhang
+- Yinuo Wang
+
+We are excited to bring you this comprehensive analysis of the job market trends in 2024.
+
+---
 
