@@ -1,7 +1,17 @@
----
-title: "job-trends-2024"
----
+project:
+  type: website
+  output-dir: docs
 
-## Quarto
+website:
+  title: "Job Trends 2024"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: job-trends-2024.qmd
+        text: Job Trends 2024
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+format:
+  html:
+    theme: cosmo
+    toc: true

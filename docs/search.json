@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "job-trends-2024.html",
+    "href": "job-trends-2024.html",
+    "title": "Job Trends 2024",
+    "section": "",
+    "text": "project: type: website output-dir: docs\nwebsite: title: “Job Trends 2024” navbar: left: - href: index.qmd text: Home - href: job-trends-2024.qmd text: Job Trends 2024\nformat: html: theme: cosmo toc: true"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "2024 Job Trends",
+    "section": "",
+    "text": "Welcome to the 2024 Job Trends Analysis\nThis website provides an in-depth analysis of job trends for 2024 based on the latest available dataset. Below you will find an overview of the data, key insights, and interactive visualizations that reveal:\n\nEmployment Patterns: How various industries are performing.\nJob Demand: Trends in job postings and market demands.\nRegional Variations: How different regions are impacted.\n\nAbout the Data\nThe dataset for 2024 has been carefully curated and cleaned to ensure reliable insights. It includes data on:\n\nJob Postings: Information on new job openings.\nIndustry Sectors: Detailed breakdowns by sector.\nLocation Data: Regional trends and statistics.\n\nFocus Topic: Geographic and Remote Work Analysis\nIn 2024, geographic distribution and remote work playing a crucial role. This section explores:\n\nRegional Job Growth: Identifying which regions are experiencing the highest job growth.\nRemote Work Trends: Examining industries with the highest share of remote job postings.\nUrban vs. Rural Shifts: Analyzing whether job trends are favoring metropolitan areas or expanding to suburban and rural locations.\nGlobal Talent Trends: How companies are hiring across different time zones and leveraging a global workforce.\n\nThis analysis provides valuable insights for job seekers, employers, and policymakers navigating the evolving employment landscape.\nFeel free to explore the site and learn more about the evolving job market.\nMeet the Team\n\nLing Lu\nLuoyan Zhang\nYinuo Wang\n\nWe are excited to bring you this comprehensive analysis of the job market trends in 2024."
+  }
+]

@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "Job Trends 2024"
@@ -7,6 +8,10 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: job-trends-2024.qmd
+        text: Job Trends 2024
 
-
-
+format:
+  html:
+    theme: cosmo
+    toc: true
