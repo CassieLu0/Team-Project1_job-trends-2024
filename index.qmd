@@ -4,7 +4,7 @@ author:
   - Ling Lu
   - Luoyan Zhang
   - Yinuo Wang
-date: "`r Sys.Date()`"  
+date: "Feb 6, 2025"  
 format: html
 theme: default
 highlight-style: pygments
