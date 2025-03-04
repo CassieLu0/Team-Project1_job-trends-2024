@@ -10,8 +10,11 @@ website:
         text: Home
       - href: job-trends-2024.qmd
         text: Job Trends 2024
+      - href: data_analysis.qmd
+        text: Data Analysis
 
 format:
   html:
     theme: cosmo
     toc: true
+

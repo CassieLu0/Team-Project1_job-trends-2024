@@ -1,0 +1,168 @@
+---
+title: "Data Analysis"
+subtitle: "Comprehensive Data Cleaning & Exploratory Analysis of Job Market Trends"
+author:
+  - name: Ling Lu
+    affiliations:
+      - id: U15738240
+        name: Boston University
+        city: Boston
+        state: MA
+  - name: Luoyan Zhang
+    affiliations:
+      - id: U00607539
+        name: Boston University
+        city: Boston
+        state: MA
+  - name: Yinuo Wang
+    affiliations:
+      - id: U78839500
+        name: Boston University
+        city: Boston
+        state: MA
+bibliography: references.bib
+csl: csl/econometrica.csl
+format: 
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
+---
+
+# Introduction
+---
+title: "Data Analysis"
+subtitle: "Comprehensive Data Cleaning & Exploratory Analysis of Job Market Trends"
+author:
+  - name: Norah Jones
+    affiliations:
+      - id: bu
+        name: Boston University
+        city: Boston
+        state: MA
+  - name: John Hamm
+    affiliations:
+      - ref: bu
+bibliography: references.bib
+csl: csl/econometrica.csl
+format: 
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
+---
+
+# Introduction
+
+This section presents a detailed data analysis of job market trends in 2024, focusing on AI-driven changes, salary disparities, and employment trends across different regions and industries.
+
+
+## Data Import and Cleaning
+```python
+# Load necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+data = pd.read_csv("lightcast_job_postings.csv")
+
+# Display dataset summary
+print(data.info())
+print(data.describe())
+```
+
+# Data Cleaning & Preprocessing
+
+## Drop Unnecessary Columns
+
+ **Which columns should be dropped, and why?**
+
+We remove redundant NAICS/SOC codes and tracking data to simplify our dataset. Keeping only the latest `NAICS_2022_6` and `SOC_2021_4` ensures that our analysis reflects current industry and occupational classifications.
+
+### Dropping Unnecessary Columns
+```python
+columns_to_drop = [
+    "ID", "URL", "ACTIVE_URLS", "DUPLICATES", "LAST_UPDATED_TIMESTAMP",
+    "NAICS2", "NAICS3", "NAICS4", "NAICS5", "NAICS6",
+    "SOC_2", "SOC_3", "SOC_5"
+]
+df.drop(columns=columns_to_drop, inplace=True)
+```
+
+##  Handle Missing Values
+ **How should missing values be handled?**
+
+We use different strategies for missing values:
+- Numerical fields (e.g., `Salary`) are filled with the median.
+- Categorical fields (e.g., `Industry`) are replaced with "Unknown".
+- Columns with >50% missing values are dropped.
+
+```python
+import missingno as msno
+import matplotlib.pyplot as plt
+
+# Visualize missing data
+msno.heatmap(df)
+plt.title("Missing Values Heatmap")
+plt.show()
+
+# Drop columns with >50% missing values
+df.dropna(thresh=len(df) * 0.5, axis=1, inplace=True)
+
+# Fill missing values
+df["Salary"].fillna(df["Salary"].median(), inplace=True)
+df["Industry"].fillna("Unknown", inplace=True)
+```
+
+## Remove Duplicates
+
+To ensure each job is counted only once, we remove duplicates based on job title, company, location, and posting date.
+
+```python
+df = df.drop_duplicates(subset=["TITLE", "COMPANY", "LOCATION", "POSTED"], keep="first")
+```
+
+# Exploratory Data Analysis (EDA)
+📌 **Why these visualizations were chosen?**
+
+EDA helps uncover patterns in job postings and salaries across industries. These insights assist job seekers in making informed career decisions.
+
+### Job Postings by Industry
+**Why this visualization?**
+- Helps identify industries with the most job openings, providing job seekers with information on demand.
+- Allows trend analysis over time if combined with historical data.
+
+```python
+import plotly.express as px
+
+# Job postings by industry
+fig = px.bar(df["Industry"].value_counts(), title="Job Postings by Industry")
+fig.show()
+```
+
+### Salary Distribution by Industry
+**Why this visualization?**
+- Displays salary variations across different industries.
+- Helps in comparing earning potential across sectors.
+
+```python
+fig = px.box(df, x="Industry", y="Salary", title="Salary Distribution by Industry")
+fig.show()
+```
+
+### Remote vs. On-Site Jobs
+**Why this visualization?**
+- Shows the proportion of remote versus on-site jobs.
+- Helps job seekers assess remote work availability in their target industry.
+
+```python
+fig = px.pie(df, names="REMOTE_TYPE_NAME", title="Remote vs. On-Site Jobs")
+fig.show()
+```
+
+
+
+## Conclusion
+This analysis provides insights into the evolving job market in 2024, highlighting AI's impact, salary trends, and employment disparities. The findings indicate how different disciplines benefit from AI's rise, with certain fields seeing more substantial salary growth. Further analysis will explore regional job differences and future career recommendations.

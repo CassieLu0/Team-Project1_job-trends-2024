@@ -14,13 +14,6 @@
     "text": "Welcome to the 2024 Job Trends Analysis\nThis website provides an in-depth analysis of job trends for 2024 based on the latest available dataset. Below you will find an overview of the data, key insights, and interactive visualizations that reveal:\nAbout the Data\nThe dataset for 2024 has been carefully curated and cleaned to ensure reliable insights. It includes data on:\nFocus Topic: Geographic and Remote Work Analysis"
   },
   {
-    "objectID": "index.html#brief-literature-review",
-    "href": "index.html#brief-literature-review",
-    "title": "2024 Job Trends",
-    "section": "Brief Literature Review",
-    "text": "Brief Literature Review\nRecent studies highlight the evolving trends and challenges of remote work across industries. Hansen et al. (Hansen et al. (2023)) analyze remote work distribution, showing that high-skilled jobs have embraced remote work, particularly in the technology sector, whereas manual and service jobs remain on-site. Similarly, Gibson (Gibson (2024)) examines labor market dynamics in Silicon Valley, revealing how remote work is leveraged to attract and retain talent in competitive regions. These studies emphasize the growing divide in remote work opportunities based on job type and location.\nOn the policy side, Olawale et al. (Olawale et al. (2024)) review IT sector remote work policies, stressing the importance of clear guidelines and technology infrastructure for efficiency and security. Meanwhile, Huang (Huang (2024)) explores how AI-driven industries reshape labor structures, further enabling remote work adoption. Together, these studies provide a comprehensive view of remote work’s trajectory, examining the key factors that drive its expansion and emphasizing the need for adaptive policies to keep pace with the evolving digital workforce."
-  },
-  {
     "objectID": "index.html#introduction",
     "href": "index.html#introduction",
     "title": "2024 Job Trends",
@@ -33,6 +26,13 @@
     "title": "2024 Job Trends",
     "section": "Research Rationale",
     "text": "Research Rationale\nThis study analyzes job market trends using the dataset job-market-analysis-2024, focusing on three key areas: 1. Geographic Distribution of AI vs. Non-AI Job Growth Identifying which cities and states are experiencing the highest job growth in AI-driven careers versus traditional roles. Examining how AI adoption is impacting job availability across different industries and regions. 2. Remote Work Trends Across Industries Investigating whether remote job opportunities are increasing or declining in various sectors. Analyzing how hybrid work models affect hiring patterns and employee mobility. 3. The Evolution of Tech Hubs and Regional Job Markets Assessing whether established tech hubs (e.g., Silicon Valley, Austin) still dominate hiring or if emerging locations are gaining traction. Comparing urban and rural job market dynamics for AI and non-AI careers, including wage disparities and employment opportunities. By examining these trends, this research aims to provide insights into the future of work, helping organizations and professionals adapt to an evolving job landscape influenced by AI adoption and remote work policies"
+  },
+  {
+    "objectID": "index.html#brief-literature-review",
+    "href": "index.html#brief-literature-review",
+    "title": "2024 Job Trends",
+    "section": "Brief Literature Review",
+    "text": "Brief Literature Review\nRecent studies highlight the evolving trends and challenges of remote work across industries. Hansen et al. (Hansen et al. (2023)) analyze remote work distribution, showing that high-skilled jobs have embraced remote work, particularly in the technology sector, whereas manual and service jobs remain on-site. Similarly, Gibson (Gibson (2024)) examines labor market dynamics in Silicon Valley, revealing how remote work is leveraged to attract and retain talent in competitive regions. These studies emphasize the growing divide in remote work opportunities based on job type and location.\nOn the policy side, Olawale et al. (Olawale et al. (2024)) review IT sector remote work policies, stressing the importance of clear guidelines and technology infrastructure for efficiency and security. Meanwhile, Huang (Huang (2024)) explores how AI-driven industries reshape labor structures, further enabling remote work adoption. Together, these studies provide a comprehensive view of remote work’s trajectory, examining the key factors that drive its expansion and emphasizing the need for adaptive policies to keep pace with the evolving digital workforce."
   },
   {
     "objectID": "index.html#references",
