@@ -1,6 +1,10 @@
 ---
 title: "Data Analysis"
 subtitle: "Comprehensive Data Cleaning & Exploratory Analysis of Job Market Trends"
+execute:
+  echo: true   
+  warning: false 
+jupyter: python3
 author:
   - name: Ling Lu
     affiliations:
@@ -36,19 +40,25 @@ This section presents a detailed data analysis of job market trends in 2024, foc
 
 
 ## Data Import and Cleaning
-```python
+```{python}
 # Load necessary libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+```
 # Load dataset
-data = pd.read_csv("lightcast_job_postings.csv")
+
+```{python}
+
+df = pd.read_csv("/Users/cassielu/Downloads/lightcast_job_postings.csv")
 
 # Display dataset summary
-print(data.info())
-print(data.describe())
+
+df.info()
+df.describe()
+
 ```
 
 # Data Cleaning & Preprocessing
@@ -61,14 +71,18 @@ The columns selected for removal are considered redundant because they either pr
 
 Additionally, industry and occupational classification columns like `"NAICS2"` to `"NAICS6"` and `"SOC_2"`, `"SOC_3"`, `"SOC_5"` are removed because these represent different levels of classification, and more relevant or updated versions (e.g., `"NAICS_2022_2"` to `"NAICS_2022_6"`) are already present in the dataset. Removing these redundant columns helps streamline the dataset, making it more efficient to analyze without losing valuable information.
 
-### Dropping Unnecessary Columns
-```python
+```{python}
+
 columns_to_drop = [
-    "ID", "URL", "ACTIVE_URLS", "DUPLICATES", "LAST_UPDATED_TIMESTAMP",
-    "NAICS2", "NAICS3", "NAICS4", "NAICS5", "NAICS6",
-    "SOC_2", "SOC_3", "SOC_5"
+    "id", "duplicates", "last_updated_timestamp",
+    "naics2", "naics3", "naics4", "naics5", "naics6",
+    "soc_2", "soc_3", "soc_5"
 ]
-df.drop(columns=columns_to_drop, inplace=True)
+
+df = df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=False)
+
+print("Columns after dropping:", df.columns)
+df.head()
 ```
 
 ##  Handle Missing Values
@@ -76,7 +90,7 @@ df.drop(columns=columns_to_drop, inplace=True)
 
 Missing values should be handled strategically based on their impact on analysis. First, visualizing missing data with a heatmap helps identify patterns and assess severity. Columns with more than 50% missing values are dropped to avoid unreliable or incomplete data. For numerical fields like `"Salary"`, filling missing values with the median ensures the data remains representative without being skewed by outliers. Categorical fields like `"Industry"` are filled with `"Unknown"` to maintain completeness while preserving interpretability. This approach balances data retention and accuracy, ensuring meaningful analysis without introducing bias.
 
-```python
+```{python}
 import missingno as msno
 import matplotlib.pyplot as plt
 
@@ -89,54 +103,105 @@ plt.show()
 df.dropna(thresh=len(df) * 0.5, axis=1, inplace=True)
 
 # Fill missing values
-df["Salary"].fillna(df["Salary"].median(), inplace=True)
-df["Industry"].fillna("Unknown", inplace=True)
+
+industry_cols = ["lightcast_sectors_name", "lightcast_sectors"]
+existing_industry_col = next((col for col in industry_cols if col in df.columns), None)
+
+if existing_industry_col:
+    df[existing_industry_col].fillna("Unknown", inplace=True)
+else:
+    print("Warning: No industry-related column found in the dataset.")
+
+
+
+if "salary" in df.columns:
+    df["salary_avg"] = df["salary"]
+elif "salary_from" in df.columns and "salary_to" in df.columns:
+    df["salary_avg"] = df[["salary_from", "salary_to"]].mean(axis=1, skipna=True)
+else:
+    print("Warning: No salary-related column found!")
+
+
+
+
+
+
 ```
 
 ## Remove Duplicates
 
 To ensure each job is counted only once, we remove duplicates based on job title, company, location, and posting date.
 
-```python
-df = df.drop_duplicates(subset=["TITLE", "COMPANY", "LOCATION", "POSTED"], keep="first")
+```{python}
+
+columns_to_check = ["title", "company", "location", "posted"]  # Corrected column names
+existing_columns = [col for col in columns_to_check if col in df.columns]
+
+print("Before removing duplicates:")
+print(df[existing_columns].head())
+
+
+df = df.drop_duplicates(subset=existing_columns, keep="first")
+
+print("\nAfter removing duplicates:")
+print(df[existing_columns].head())
+
+print("\nDuplicates removed based on:", existing_columns)
+
 ```
 
 # Exploratory Data Analysis (EDA)
-📌 **Why these visualizations were chosen?**
+**Why these visualizations were chosen?**
 
 EDA helps uncover patterns in job postings and salaries across industries. These insights assist job seekers in making informed career decisions.
 
-### Job Postings by Industry
+## Job Postings by Industry
 **Why this visualization?**
 
 The bar chart displays the distribution of job postings across different industries, helping identify which sectors have the most opportunities. This allows for a quick comparison of industry demand and can highlight trends in job availability.
 
-```python
+```{python}
+
 import plotly.express as px
 
-# Job postings by industry
-fig = px.bar(df["Industry"].value_counts(), title="Job Postings by Industry")
-fig.show()
+## Job postings by industry
+
+industry_col = "lightcast_sectors_name" if "lightcast_sectors_name" in df.columns else None
+
+if industry_col:
+    fig = px.bar(df[industry_col].value_counts(), title="Job Postings by Industry")
+    fig.show()
+else:
+    print("Warning: No valid industry column found.")
+
+
 ```
 
-### Salary Distribution by Industry
+## Salary Distribution by Industry
 **Why this visualization?**
 
 The box plot visualizes salary distribution by industry, showcasing variations in compensation and identifying potential outliers. This helps compare earnings across different sectors and assess salary disparities within the job market.
 
-```python
-fig = px.box(df, x="Industry", y="Salary", title="Salary Distribution by Industry")
-fig.show()
+```{python}
+
+if industry_col:
+    fig = px.box(df, x=industry_col, y=salary, title="Salary Distribution by Industry")
+    fig.show()
+else:
+    print("Warning: Industry or salary column not found in dataset.")
+
 ```
 
-### Remote vs. On-Site Jobs
+## Remote vs. On-Site Jobs
 **Why this visualization?**
 
 The pie chart illustrates the proportion of remote versus on-site jobs, providing insights into workplace flexibility. It helps understand the prevalence of remote work and how job location preferences are shifting in the job market.
 
-```python
-fig = px.pie(df, names="REMOTE_TYPE_NAME", title="Remote vs. On-Site Jobs")
+```{python}
+
+fig = px.pie(df, names="remote_type_name", title="Remote vs. On-Site Jobs")
 fig.show()
+
 ```
 
 
