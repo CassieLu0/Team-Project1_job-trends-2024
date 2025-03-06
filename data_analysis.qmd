@@ -29,28 +29,6 @@ format:
     df-print: paged
 ---
 
-# Introduction
----
-title: "Data Analysis"
-subtitle: "Comprehensive Data Cleaning & Exploratory Analysis of Job Market Trends"
-author:
-  - name: Norah Jones
-    affiliations:
-      - id: bu
-        name: Boston University
-        city: Boston
-        state: MA
-  - name: John Hamm
-    affiliations:
-      - ref: bu
-bibliography: references.bib
-csl: csl/econometrica.csl
-format: 
-  html:
-    toc: true
-    number-sections: true
-    df-print: paged
----
 
 # Introduction
 
@@ -79,7 +57,9 @@ print(data.describe())
 
  **Which columns should be dropped, and why?**
 
-We remove redundant NAICS/SOC codes and tracking data to simplify our dataset. Keeping only the latest `NAICS_2022_6` and `SOC_2021_4` ensures that our analysis reflects current industry and occupational classifications.
+The columns selected for removal are considered redundant because they either provide duplicate information, are unnecessary for analysis, or have more detailed equivalents in the dataset. For example, `"ID"` serves as a unique identifier but is often not needed for analysis, while `"URL"` and `"ACTIVE_URLS"` contain job posting links that are useful externally but not critical for data processing. Similarly, `"LAST_UPDATED_TIMESTAMP"` is dropped because `"LAST_UPDATED_DATE"` already provides update information in a more readable format. The `"DUPLICATES"` column, which likely flags repeated entries, is also removed since duplicates can be handled separately.
+
+Additionally, industry and occupational classification columns like `"NAICS2"` to `"NAICS6"` and `"SOC_2"`, `"SOC_3"`, `"SOC_5"` are removed because these represent different levels of classification, and more relevant or updated versions (e.g., `"NAICS_2022_2"` to `"NAICS_2022_6"`) are already present in the dataset. Removing these redundant columns helps streamline the dataset, making it more efficient to analyze without losing valuable information.
 
 ### Dropping Unnecessary Columns
 ```python
@@ -94,10 +74,7 @@ df.drop(columns=columns_to_drop, inplace=True)
 ##  Handle Missing Values
  **How should missing values be handled?**
 
-We use different strategies for missing values:
-- Numerical fields (e.g., `Salary`) are filled with the median.
-- Categorical fields (e.g., `Industry`) are replaced with "Unknown".
-- Columns with >50% missing values are dropped.
+Missing values should be handled strategically based on their impact on analysis. First, visualizing missing data with a heatmap helps identify patterns and assess severity. Columns with more than 50% missing values are dropped to avoid unreliable or incomplete data. For numerical fields like `"Salary"`, filling missing values with the median ensures the data remains representative without being skewed by outliers. Categorical fields like `"Industry"` are filled with `"Unknown"` to maintain completeness while preserving interpretability. This approach balances data retention and accuracy, ensuring meaningful analysis without introducing bias.
 
 ```python
 import missingno as msno
@@ -131,8 +108,8 @@ EDA helps uncover patterns in job postings and salaries across industries. These
 
 ### Job Postings by Industry
 **Why this visualization?**
-- Helps identify industries with the most job openings, providing job seekers with information on demand.
-- Allows trend analysis over time if combined with historical data.
+
+The bar chart displays the distribution of job postings across different industries, helping identify which sectors have the most opportunities. This allows for a quick comparison of industry demand and can highlight trends in job availability.
 
 ```python
 import plotly.express as px
@@ -144,8 +121,8 @@ fig.show()
 
 ### Salary Distribution by Industry
 **Why this visualization?**
-- Displays salary variations across different industries.
-- Helps in comparing earning potential across sectors.
+
+The box plot visualizes salary distribution by industry, showcasing variations in compensation and identifying potential outliers. This helps compare earnings across different sectors and assess salary disparities within the job market.
 
 ```python
 fig = px.box(df, x="Industry", y="Salary", title="Salary Distribution by Industry")
@@ -154,8 +131,8 @@ fig.show()
 
 ### Remote vs. On-Site Jobs
 **Why this visualization?**
-- Shows the proportion of remote versus on-site jobs.
-- Helps job seekers assess remote work availability in their target industry.
+
+The pie chart illustrates the proportion of remote versus on-site jobs, providing insights into workplace flexibility. It helps understand the prevalence of remote work and how job location preferences are shifting in the job market.
 
 ```python
 fig = px.pie(df, names="REMOTE_TYPE_NAME", title="Remote vs. On-Site Jobs")

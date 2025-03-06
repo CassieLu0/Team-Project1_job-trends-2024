@@ -40,5 +40,47 @@
     "title": "2024 Job Trends",
     "section": "References",
     "text": "References\nMeet the Team\n\nLing Lu\nLuoyan Zhang\nYinuo Wang\n\nWe are excited to bring you this comprehensive analysis of the job market trends in 2024."
+  },
+  {
+    "objectID": "data_analysis.html#data-import-and-cleaning",
+    "href": "data_analysis.html#data-import-and-cleaning",
+    "title": "Data Analysis",
+    "section": "",
+    "text": "# Load necessary libraries\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load dataset\ndata = pd.read_csv(\"lightcast_job_postings.csv\")\n\n# Display dataset summary\nprint(data.info())\nprint(data.describe())"
+  },
+  {
+    "objectID": "data_analysis.html#drop-unnecessary-columns",
+    "href": "data_analysis.html#drop-unnecessary-columns",
+    "title": "Data Analysis",
+    "section": "2.1 Drop Unnecessary Columns",
+    "text": "2.1 Drop Unnecessary Columns\nWhich columns should be dropped, and why?\nThe columns selected for removal are considered redundant because they either provide duplicate information, are unnecessary for analysis, or have more detailed equivalents in the dataset. For example, \"ID\" serves as a unique identifier but is often not needed for analysis, while \"URL\" and \"ACTIVE_URLS\" contain job posting links that are useful externally but not critical for data processing. Similarly, \"LAST_UPDATED_TIMESTAMP\" is dropped because \"LAST_UPDATED_DATE\" already provides update information in a more readable format. The \"DUPLICATES\" column, which likely flags repeated entries, is also removed since duplicates can be handled separately.\nAdditionally, industry and occupational classification columns like \"NAICS2\" to \"NAICS6\" and \"SOC_2\", \"SOC_3\", \"SOC_5\" are removed because these represent different levels of classification, and more relevant or updated versions (e.g., \"NAICS_2022_2\" to \"NAICS_2022_6\") are already present in the dataset. Removing these redundant columns helps streamline the dataset, making it more efficient to analyze without losing valuable information.\n\n2.1.1 Dropping Unnecessary Columns\ncolumns_to_drop = [\n    \"ID\", \"URL\", \"ACTIVE_URLS\", \"DUPLICATES\", \"LAST_UPDATED_TIMESTAMP\",\n    \"NAICS2\", \"NAICS3\", \"NAICS4\", \"NAICS5\", \"NAICS6\",\n    \"SOC_2\", \"SOC_3\", \"SOC_5\"\n]\ndf.drop(columns=columns_to_drop, inplace=True)"
+  },
+  {
+    "objectID": "data_analysis.html#handle-missing-values",
+    "href": "data_analysis.html#handle-missing-values",
+    "title": "Data Analysis",
+    "section": "2.2 Handle Missing Values",
+    "text": "2.2 Handle Missing Values\nHow should missing values be handled?\nMissing values should be handled strategically based on their impact on analysis. First, visualizing missing data with a heatmap helps identify patterns and assess severity. Columns with more than 50% missing values are dropped to avoid unreliable or incomplete data. For numerical fields like \"Salary\", filling missing values with the median ensures the data remains representative without being skewed by outliers. Categorical fields like \"Industry\" are filled with \"Unknown\" to maintain completeness while preserving interpretability. This approach balances data retention and accuracy, ensuring meaningful analysis without introducing bias.\nimport missingno as msno\nimport matplotlib.pyplot as plt\n\n# Visualize missing data\nmsno.heatmap(df)\nplt.title(\"Missing Values Heatmap\")\nplt.show()\n\n# Drop columns with &gt;50% missing values\ndf.dropna(thresh=len(df) * 0.5, axis=1, inplace=True)\n\n# Fill missing values\ndf[\"Salary\"].fillna(df[\"Salary\"].median(), inplace=True)\ndf[\"Industry\"].fillna(\"Unknown\", inplace=True)"
+  },
+  {
+    "objectID": "data_analysis.html#remove-duplicates",
+    "href": "data_analysis.html#remove-duplicates",
+    "title": "Data Analysis",
+    "section": "2.3 Remove Duplicates",
+    "text": "2.3 Remove Duplicates\nTo ensure each job is counted only once, we remove duplicates based on job title, company, location, and posting date.\ndf = df.drop_duplicates(subset=[\"TITLE\", \"COMPANY\", \"LOCATION\", \"POSTED\"], keep=\"first\")"
+  },
+  {
+    "objectID": "data_analysis.html#conclusion",
+    "href": "data_analysis.html#conclusion",
+    "title": "Data Analysis",
+    "section": "3.1 Conclusion",
+    "text": "3.1 Conclusion\nThis analysis provides insights into the evolving job market in 2024, highlighting AI’s impact, salary trends, and employment disparities. The findings indicate how different disciplines benefit from AI’s rise, with certain fields seeing more substantial salary growth. Further analysis will explore regional job differences and future career recommendations."
+  },
+  {
+    "objectID": "data_analysis.html",
+    "href": "data_analysis.html",
+    "title": "Data Analysis",
+    "section": "",
+    "text": "This section presents a detailed data analysis of job market trends in 2024, focusing on AI-driven changes, salary disparities, and employment trends across different regions and industries.\n\n\n# Load necessary libraries\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load dataset\ndata = pd.read_csv(\"lightcast_job_postings.csv\")\n\n# Display dataset summary\nprint(data.info())\nprint(data.describe())"
   }
 ]
